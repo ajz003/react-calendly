@@ -34,14 +34,16 @@ export enum CalendlyEvent {
   EVENT_SCHEDULED = "calendly.event_scheduled",
 }
 
-export type Utm = Optional<{
-  utmCampaign: string;
-  utmSource: string;
-  utmMedium: string;
-  utmContent: string;
-  utmTerm: string;
-  salesforce_uuid: string;
-}>;
+// export type Utm = Optional<{
+//   utmCampaign: string;
+//   utmSource: string;
+//   utmMedium: string;
+//   utmContent: string;
+//   utmTerm: string;
+//   salesforce_uuid: string;
+// }>;
+
+export type Utm = Record<string, string>;
 
 /**
  * @description The default title is Calendly Scheduling Page
