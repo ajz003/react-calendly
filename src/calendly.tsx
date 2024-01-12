@@ -142,6 +142,23 @@ export const formatCalendlyUrl = ({
   const queryString = url.slice(queryStringIndex + 1);
   const baseUrl = hasQueryString ? url.slice(0, queryStringIndex) : url;
 
+  const baseUtmKeySet = new Set([
+    'utmCampaign',
+    'utmSource',
+    'utmMedium',
+    'utmContent',
+    'utmTerm',
+    'salesforce_uuid',
+  ]);
+
+  const otherUtm: string[] = [];
+  Object.entries(utm).forEach(entry => {
+    const [key, value] = entry;
+    if (!baseUtmKeySet.has(key)) {
+      otherUtm.push(`${key}=${encodeURIComponent(value)}`);
+    }
+  })
+
   const updatedQueryString = [
     hasQueryString ? queryString : null,
     backgroundColor ? `background_color=${backgroundColor}` : null,
@@ -173,6 +190,7 @@ export const formatCalendlyUrl = ({
      */
     `embed_domain=1`,
   ]
+    .concat(otherUtm)
     .concat(customAnswers ? formatCustomAnswers(customAnswers) : [])
     .filter((item) => item !== null)
     .join("&");
